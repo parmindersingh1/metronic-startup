@@ -33,6 +33,10 @@ const LoanForm = () => {
                     .required('Pan Number is required'),
                 panNumberDocument: Yup.string()
                     .required('Pan Number Document is required'),
+                aadhaarNumber: Yup.string()
+                    .required('Pan Number is required'),
+                aadhaarNumberDocument: Yup.string()
+                    .required('Pan Number Document is required'),
                 annualIncome: Yup.string()
                     .required('Annual Income is required'),
                 loanProduct: Yup.string()
