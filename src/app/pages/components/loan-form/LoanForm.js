@@ -1,62 +1,147 @@
 import React from 'react';
-import { Formik, Field, Form, ErrorMessage } from 'formik';
+import {Formik, Field, Form, ErrorMessage} from 'formik';
 import * as Yup from 'yup';
 
 const LoanForm = () => {
     return (<>
         <Formik
             initialValues={{
-                firstName: '',
-                lastName: '',
-                email: '',
-                password: '',
-                confirmPassword: ''
+                name: '',
+                dateOfBirth: '',
+                gender: '',
+                address: '',
+                panNumber: '',
+                panNumberDocument: '',
+                aadhaarNumber:'',
+                aadhaarNumberDocument:'',
+                annualIncome: '',
+                loanProduct: '',
+                loanSubProduct: '',
+                loanAmount: '',
+                loanTenure: '',
             }}
             validationSchema={Yup.object().shape({
-                firstName: Yup.string()
-                    .required('First Name is required'),
-                lastName: Yup.string()
-                    .required('Last Name is required'),
-                email: Yup.string()
-                    .email('Email is invalid')
-                    .required('Email is required'),
-                password: Yup.string()
-                    .min(6, 'Password must be at least 6 characters')
-                    .required('Password is required'),
-                confirmPassword: Yup.string()
-                    .oneOf([Yup.ref('password'), null], 'Passwords must match')
-                    .required('Confirm Password is required')
+                name: Yup.string()
+                    .required('Name is required'),
+                dateOfBirth: Yup.string()
+                    .required('Date of Birth is required'),
+                gender: Yup.string()
+                    .required('Gender is required'),
+                address: Yup.string()
+                    .required('Address is required'),
+                panNumber: Yup.string()
+                    .required('Pan Number is required'),
+                panNumberDocument: Yup.string()
+                    .required('Pan Number Document is required'),
+                annualIncome: Yup.string()
+                    .required('Annual Income is required'),
+                loanProduct: Yup.string()
+                    .required('Loan Product is required'),
+                loanSubProduct: Yup.string()
+                    .required('Loan Sub Product Document is required'),
+                loanAmount: Yup.string()
+                    .required('Loan Amount is required'),
+                loanTenure: Yup.string()
+                    .required('Loan Tenure is required'),
             })}
             onSubmit={fields => {
                 alert('SUCCESS!! :-)\n\n' + JSON.stringify(fields, null, 4))
             }}
-            render={({ errors, status, touched }) => (
+            render={({errors, status, touched, setFieldValue}) => (
                 <Form>
                     <div className="row">
                         <div className="form-group col-md-6 col-lg-6 col-sm-12">
-                            <label htmlFor="firstName">First Name</label>
-                            <Field name="firstName" type="text" className={'form-control' + (errors.firstName && touched.firstName ? ' is-invalid' : '')} />
-                            <ErrorMessage name="firstName" component="div" className="invalid-feedback" />
+                            <label htmlFor="name">Name</label>
+                            <Field name="name" type="text"
+                                   className={'form-control' + (errors.name && touched.name ? ' is-invalid' : '')}/>
+                            <ErrorMessage name="name" component="div" className="invalid-feedback"/>
                         </div>
                         <div className="form-group col-md-6 col-lg-6 col-sm-12">
-                            <label htmlFor="lastName">Last Name</label>
-                            <Field name="lastName" type="text" className={'form-control' + (errors.lastName && touched.lastName ? ' is-invalid' : '')} />
-                            <ErrorMessage name="lastName" component="div" className="invalid-feedback" />
+                            <label htmlFor="dateOfBirth">Date of Birth</label>
+                            <Field name="dateOfBirth" type="text"
+                                   className={'form-control' + (errors.dateOfBirth && touched.dateOfBirth ? ' is-invalid' : '')}/>
+                            <ErrorMessage name="dateOfBirth" component="div" className="invalid-feedback"/>
                         </div>
                         <div className="form-group col-md-6 col-lg-6 col-sm-12">
-                            <label htmlFor="email">Email</label>
-                            <Field name="email" type="text" className={'form-control' + (errors.email && touched.email ? ' is-invalid' : '')} />
-                            <ErrorMessage name="email" component="div" className="invalid-feedback" />
+                            <label htmlFor="gender">Gender</label>
+                            {/* <Field name="gender" type="text"
+                             className={'form-control' + (errors.gender && touched.gender ? ' is-invalid' : '')} /> */}
+                            <Field
+                                className={'form-control' + (errors.gender && touched.gender ? ' is-invalid' : '')}
+                                name="gender" component="select" placeholder="Your Gender">
+                                <option defaultValue>Your Gender</option>
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                                <option value="Other">Other</option>
+                            </Field>
+                            <ErrorMessage name="gender" component="div" className="invalid-feedback"/>
                         </div>
                         <div className="form-group col-md-6 col-lg-6 col-sm-12">
-                            <label htmlFor="password">Password</label>
-                            <Field name="password" type="password" className={'form-control' + (errors.password && touched.password ? ' is-invalid' : '')} />
-                            <ErrorMessage name="password" component="div" className="invalid-feedback" />
+                            <label htmlFor="address">Address</label>
+                            <Field name="address" type="text"
+                                   className={'form-control' + (errors.address && touched.address ? ' is-invalid' : '')}/>
+                            <ErrorMessage name="address" component="div" className="invalid-feedback"/>
                         </div>
                         <div className="form-group col-md-6 col-lg-6 col-sm-12">
-                            <label htmlFor="confirmPassword">Confirm Password</label>
-                            <Field name="confirmPassword" type="password" className={'form-control' + (errors.confirmPassword && touched.confirmPassword ? ' is-invalid' : '')} />
-                            <ErrorMessage name="confirmPassword" component="div" className="invalid-feedback" />
+                            <label htmlFor="panNumber">PAN Number</label>
+                            <Field name="panNumber" type="text"
+                                   className={'form-control' + (errors.panNumber && touched.panNumber ? ' is-invalid' : '')}/>
+                            <ErrorMessage name="panNumber" component="div" className="invalid-feedback"/>
+                        </div>
+
+                        <div className="form-group col-md-6 col-lg-6 col-sm-12">
+                            <label htmlFor="panNumberDocument">PAN Number Document</label>
+                            <input name="panNumberDocument" type="file" className={'form-control' + (errors.panNumberDocument && touched.panNumberDocument ? ' is-invalid' : '')}
+                                   onChange={(event) => {
+                                       setFieldValue("photo", event.currentTarget.files[0]);
+                                   }}/>
+                        </div>
+
+                        <div className="form-group col-md-6 col-lg-6 col-sm-12">
+                            <label htmlFor="aadhaarNumber">Aadhaar Number</label>
+                            <Field name="aadhaarNumber" type="text"
+                                   className={'form-control' + (errors.aadhaarNumber && touched.aadhaarNumber ? ' is-invalid' : '')}/>
+                            <ErrorMessage name="aadhaarNumber" component="div" className="invalid-feedback"/>
+                        </div>
+
+                        <div className="form-group col-md-6 col-lg-6 col-sm-12">
+                            <label htmlFor="aadhaarNumberDocument">Aadhaar Number Document</label>
+                            <input name="aadhaarNumberDocument" type="file" className={'form-control' + (errors.aadhaarNumberDocument && touched.aadhaarNumberDocument ? ' is-invalid' : '')}
+                                   onChange={(event) => {
+                                       setFieldValue("photo", event.currentTarget.files[0]);
+                                   }}/>
+                        </div>
+
+                        <div className="form-group col-md-6 col-lg-6 col-sm-12">
+                            <label htmlFor="annualIncome">Annual Income</label>
+                            <Field name="annualIncome" type="text"
+                                   className={'form-control' + (errors.annualIncome && touched.annualIncome ? ' is-invalid' : '')}/>
+                            <ErrorMessage name="annualIncome" component="div" className="invalid-feedback"/>
+                        </div>
+                        <div className="form-group col-md-6 col-lg-6 col-sm-12">
+                            <label htmlFor="loanProduct">Loan Product</label>
+                            <Field name="loanProduct" type="text"
+                                   className={'form-control' + (errors.loanProduct && touched.loanProduct ? ' is-invalid' : '')}/>
+                            <ErrorMessage name="loanProduct" component="div" className="invalid-feedback"/>
+                        </div>
+                        <div className="form-group col-md-6 col-lg-6 col-sm-12">
+                            <label htmlFor="loanSubProduct">Loan Sub Product</label>
+                            <Field name="loanSubProduct" type="text"
+                                   className={'form-control' + (errors.loanSubProduct && touched.loanSubProduct ? ' is-invalid' : '')}/>
+                            <ErrorMessage name="loanSubProduct" component="div" className="invalid-feedback"/>
+                        </div>
+
+                        <div className="form-group col-md-6 col-lg-6 col-sm-12">
+                            <label htmlFor="loanAmount">Loan Amount</label>
+                            <Field name="loanAmount" type="text"
+                                   className={'form-control' + (errors.loanAmount && touched.loanAmount ? ' is-invalid' : '')}/>
+                            <ErrorMessage name="loanAmount" component="div" className="invalid-feedback"/>
+                        </div>
+                        <div className="form-group col-md-6 col-lg-6 col-sm-12">
+                            <label htmlFor="loanTenure">Loan Tenure</label>
+                            <Field name="loanTenure" type="text"
+                                   className={'form-control' + (errors.loanTenure && touched.loanTenure ? ' is-invalid' : '')}/>
+                            <ErrorMessage name="loanTenure" component="div" className="invalid-feedback"/>
                         </div>
                     </div>
                     <div className="text-center m-auto">
