@@ -2,6 +2,8 @@ import React from 'react';
 import {Formik, Field, Form, ErrorMessage} from 'formik';
 import * as Yup from 'yup';
 import { zipObject } from 'lodash';
+import DatePicker from "react-datepicker"
+import "react-datepicker/dist/react-datepicker.css";
 
 const LoanForm = (props) => {
     const dynFields = zipObject((props.fields.map(f => f.name)),(props.fields.map(f => f.value || '')))
@@ -10,7 +12,7 @@ const LoanForm = (props) => {
         <Formik
             initialValues={{
                 name: '',
-                dateOfBirth: '',
+                dateOfBirth:  new Date(),
                 gender: '',
                 address: '',
                 panNumber: '',
@@ -56,7 +58,7 @@ const LoanForm = (props) => {
             onSubmit={fields => {
                 alert('SUCCESS!! :-)\n\n' + JSON.stringify(fields, null, 4))
             }}
-            render={({errors, status, touched, setFieldValue}) => (
+            render={({errors, status, touched, setFieldValue, values}) => (
                 <Form>
                     <div className="row">
                         <div className="form-group col-md-6 col-lg-6 col-sm-12">
@@ -67,8 +69,16 @@ const LoanForm = (props) => {
                         </div>
                         <div className="form-group col-md-6 col-lg-6 col-sm-12">
                             <label htmlFor="dateOfBirth">Date of Birth</label>
-                            <Field name="dateOfBirth" type="text"
-                                   className={'form-control' + (errors.dateOfBirth && touched.dateOfBirth ? ' is-invalid' : '')}/>
+                        <br/>
+                            <DatePicker
+                                selected={values.startDate}
+                                dateFormat="MMMM d, yyyy"
+                                className={'form-control' + (errors.name && touched.name ? ' is-invalid' : '')}
+                                name="startDate"
+                                onChange={date => setFieldValue('startDate', date)}
+                            />
+                            {/*<Field name="dateOfBirth" type="text"*/}
+                            {/*       className={'form-control' + (errors.dateOfBirth && touched.dateOfBirth ? ' is-invalid' : '')}/>*/}
                             <ErrorMessage name="dateOfBirth" component="div" className="invalid-feedback"/>
                         </div>
                         <div className="form-group col-md-6 col-lg-6 col-sm-12">
