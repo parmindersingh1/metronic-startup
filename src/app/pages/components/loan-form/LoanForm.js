@@ -71,11 +71,11 @@ const LoanForm = (props) => {
                             <label htmlFor="dateOfBirth">Date of Birth</label>
                         <br/>
                             <DatePicker
-                                selected={values.startDate}
+                                selected={values.dateOfBirth}
                                 dateFormat="MMMM d, yyyy"
-                                className={'form-control' + (errors.name && touched.name ? ' is-invalid' : '')}
-                                name="startDate"
-                                onChange={date => setFieldValue('startDate', date)}
+                                className={'form-control' + (errors.dateOfBirth && touched.dateOfBirth ? ' is-invalid' : '')}
+                                name="dateOfBirth"
+                                onChange={date => setFieldValue('dateOfBirth', date)}
                             />
                             {/*<Field name="dateOfBirth" type="text"*/}
                             {/*       className={'form-control' + (errors.dateOfBirth && touched.dateOfBirth ? ' is-invalid' : '')}/>*/}
