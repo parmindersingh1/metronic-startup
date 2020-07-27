@@ -2,7 +2,7 @@ import React from 'react';
 import {Formik, Field, Form, ErrorMessage} from 'formik';
 import * as Yup from 'yup';
 
-const LoanForm = () => {
+const LoanForm = (props) => {
     return (<>
         <Formik
             initialValues={{
@@ -12,8 +12,8 @@ const LoanForm = () => {
                 address: '',
                 panNumber: '',
                 panNumberDocument: '',
-                aadhaarNumber:'',
-                aadhaarNumberDocument:'',
+                aadhaarNumber: '',
+                aadhaarNumberDocument: '',
                 annualIncome: '',
                 loanProduct: '',
                 loanSubProduct: '',
@@ -95,7 +95,8 @@ const LoanForm = () => {
 
                         <div className="form-group col-md-6 col-lg-6 col-sm-12">
                             <label htmlFor="panNumberDocument">PAN Number Document</label>
-                            <input name="panNumberDocument" type="file" className={'form-control' + (errors.panNumberDocument && touched.panNumberDocument ? ' is-invalid' : '')}
+                            <input name="panNumberDocument" type="file"
+                                   className={'form-control' + (errors.panNumberDocument && touched.panNumberDocument ? ' is-invalid' : '')}
                                    onChange={(event) => {
                                        setFieldValue("photo", event.currentTarget.files[0]);
                                    }}/>
@@ -110,7 +111,8 @@ const LoanForm = () => {
 
                         <div className="form-group col-md-6 col-lg-6 col-sm-12">
                             <label htmlFor="aadhaarNumberDocument">Aadhaar Number Document</label>
-                            <input name="aadhaarNumberDocument" type="file" className={'form-control' + (errors.aadhaarNumberDocument && touched.aadhaarNumberDocument ? ' is-invalid' : '')}
+                            <input name="aadhaarNumberDocument" type="file"
+                                   className={'form-control' + (errors.aadhaarNumberDocument && touched.aadhaarNumberDocument ? ' is-invalid' : '')}
                                    onChange={(event) => {
                                        setFieldValue("photo", event.currentTarget.files[0]);
                                    }}/>
@@ -147,6 +149,17 @@ const LoanForm = () => {
                                    className={'form-control' + (errors.loanTenure && touched.loanTenure ? ' is-invalid' : '')}/>
                             <ErrorMessage name="loanTenure" component="div" className="invalid-feedback"/>
                         </div>
+                        {
+                            props.fields.map((form =>
+                                    <div className="form-group col-md-6 col-lg-6 col-sm-12">
+                                        <label htmlFor="loanTenure">{form.placeholder}</label>
+                                        <Field name={form.name} type={form.intput_type}
+                                               className={'form-control' + (errors.loanTenure && touched.loanTenure ? ' is-invalid' : '')}/>
+                                        <ErrorMessage name={form.name} component="div" className="invalid-feedback"/>
+                                    </div>
+                            ))
+                        }
+
                     </div>
                     <div className="text-center m-auto">
                         <button type="submit" className="btn btn-primary mr-2">Submit</button>
