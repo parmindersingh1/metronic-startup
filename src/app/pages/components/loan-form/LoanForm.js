@@ -1,8 +1,11 @@
 import React from 'react';
 import {Formik, Field, Form, ErrorMessage} from 'formik';
 import * as Yup from 'yup';
+import { zipObject } from 'lodash';
 
 const LoanForm = (props) => {
+    const dynFields = zipObject((props.fields.map(f => f.name)),(props.fields.map(f => f.value || '')))
+    console.log("dynFields", dynFields);
     return (<>
         <Formik
             initialValues={{
@@ -19,7 +22,9 @@ const LoanForm = (props) => {
                 loanSubProduct: '',
                 loanAmount: '',
                 loanTenure: '',
+                ...dynFields
             }}
+            enableReinitialize={true}
             validationSchema={Yup.object().shape({
                 name: Yup.string()
                     .required('Name is required'),
@@ -98,7 +103,7 @@ const LoanForm = (props) => {
                             <input name="panNumberDocument" type="file"
                                    className={'form-control' + (errors.panNumberDocument && touched.panNumberDocument ? ' is-invalid' : '')}
                                    onChange={(event) => {
-                                       setFieldValue("photo", event.currentTarget.files[0]);
+                                       setFieldValue("panNumberDocument", event.currentTarget.files[0]);
                                    }}/>
                         </div>
 
@@ -114,7 +119,7 @@ const LoanForm = (props) => {
                             <input name="aadhaarNumberDocument" type="file"
                                    className={'form-control' + (errors.aadhaarNumberDocument && touched.aadhaarNumberDocument ? ' is-invalid' : '')}
                                    onChange={(event) => {
-                                       setFieldValue("photo", event.currentTarget.files[0]);
+                                       setFieldValue("aadhaarNumberDocument", event.currentTarget.files[0]);
                                    }}/>
                         </div>
 
@@ -150,11 +155,11 @@ const LoanForm = (props) => {
                             <ErrorMessage name="loanTenure" component="div" className="invalid-feedback"/>
                         </div>
                         {
-                            props.fields.map((form =>
-                                    <div className="form-group col-md-6 col-lg-6 col-sm-12">
-                                        <label htmlFor="loanTenure">{form.placeholder}</label>
+                            props.fields.map(((form, i) =>
+                                    <div className="form-group col-md-6 col-lg-6 col-sm-12" key={i}>
+                                        <label htmlFor={form.name}>{form.placeholder}</label>
                                         <Field name={form.name} type={form.intput_type}
-                                               className={'form-control' + (errors.loanTenure && touched.loanTenure ? ' is-invalid' : '')}/>
+                                               className={'form-control' + (errors[form.name] && touched[form.name] ? ' is-invalid' : '')}/>
                                         <ErrorMessage name={form.name} component="div" className="invalid-feedback"/>
                                     </div>
                             ))
