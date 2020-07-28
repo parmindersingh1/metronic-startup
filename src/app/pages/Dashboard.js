@@ -1,8 +1,9 @@
 import React, { Component } from "react";
+import {Link} from 'react-router-dom';
 import { useSubheader } from "../../_metronic/layout";
 import LoanForm from "./components/loan-form/LoanForm";
 import { Card } from "react-bootstrap";
-import { CardHeader } from "../../_metronic/_partials/controls";
+import { CardHeader, CardHeaderToolbar } from "../../_metronic/_partials/controls";
 
 class Dashboard extends Component {
   // const suhbeader = useSubheader();
@@ -84,8 +85,32 @@ class Dashboard extends Component {
 
   render() {
     return (<>
+
+      {/*<Card>*/}
+      {/*  <CardHeader title="Holidays list">*/}
+      {/*    <CardHeaderToolbar>*/}
+      {/*      <Link*/}
+      {/*          type="button"*/}
+      {/*          className="btn btn-success btn-sm"*/}
+      {/*          to="/admin/holidays/new"*/}
+      {/*      >*/}
+      {/*        <i className="ki ki-plus icon-md mr-2"></i>*/}
+      {/*        Add Holiday*/}
+      {/*      </Link>*/}
+      {/*    </CardHeaderToolbar>*/}
+      {/*  </CardHeader>*/}
+      {/*  <CardBody>*/}
+      {/*    <HolidaysTable*/}
+      {/*        holidays={holidays}*/}
+      {/*        onViewHolidays={this.onViewHolidays}*/}
+      {/*        loading={loading}*/}
+      {/*        onEditHoliday={this.onEditHoliday}*/}
+      {/*    />*/}
+      {/*  </CardBody>*/}
+      {/*</Card>*/}
       <Card>
-        <CardHeader title='Loan Form'></CardHeader>
+        <CardHeader title='Loan Form'>
+        </CardHeader>
         <Card.Body>
           <LoanForm fields={this.state.fieldsHDFC}/>
         </Card.Body>

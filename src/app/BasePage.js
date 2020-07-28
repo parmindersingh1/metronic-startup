@@ -2,6 +2,7 @@ import React, {Suspense, lazy} from "react";
 import {Redirect, Switch, Route} from "react-router-dom";
 import {LayoutSplashScreen, ContentRoute} from "../_metronic/layout";
 import  Dashboard  from "./pages/Dashboard";
+import LoanListPage from "./pages/LoanList/loanListPage"
 
 
 export default function BasePage() {
@@ -17,7 +18,8 @@ export default function BasePage() {
                     /* Redirect from root URL to /dashboard. */
                     <Redirect exact from="/" to="/dashboard"/>
                 }
-                <ContentRoute path="/dashboard" component={Dashboard}/>               
+                <ContentRoute path="/dashboard" component={LoanListPage}/>
+                <ContentRoute path="/loanList" component={Dashboard}/>
                 <Redirect to="error/error-v1"/>
             </Switch>
         </Suspense>
